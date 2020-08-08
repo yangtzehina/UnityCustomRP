@@ -15,10 +15,10 @@ namespace CustomRP.Runtime
         {
             this.mContext = context;
             this.mCamera = camera;
-            if (!Cull())
-            {
-                return;
-            }
+             if (!Cull())
+             {
+                 return;
+             }
             Setup();
             DrawVisibleGeometry();
             Submit();
