@@ -26,12 +26,19 @@ namespace CustomRP.Runtime
 
         void DrawVisibleGeometry()
         {
-            var sortingSettings = new SortingSettings(mCamera);
+            var sortingSettings = new SortingSettings(mCamera)
+            {
+                criteria =  SortingCriteria.CommonOpaque
+            };
             var drawingSettings = new DrawingSettings(_unlitShaderTagId,sortingSettings);
-            var filteringSettings = new FilteringSettings();
+            var filteringSettings = new FilteringSettings(RenderQueueRange.opaque);
             
             mContext.DrawRenderers(mCullingResults,ref drawingSettings,ref filteringSettings);
             mContext.DrawSkybox(mCamera);
+            sortingSettings.criteria = SortingCriteria.CommonTransparent;
+            drawingSettings.sortingSettings = sortingSettings;
+            filteringSettings.renderQueueRange = RenderQueueRange.transparent;
+            mContext.DrawRenderers(mCullingResults,ref drawingSettings,ref filteringSettings);
         }
 
         void Submit()
