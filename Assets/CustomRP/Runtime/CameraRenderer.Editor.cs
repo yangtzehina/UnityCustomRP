@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UnityEditor;
+using UnityEngine;
 using UnityEngine.Rendering;
 
 namespace CustomRP.Runtime
@@ -6,6 +7,7 @@ namespace CustomRP.Runtime
     partial class CameraRenderer
     {
         partial void DrawUnsupportedShaders();
+        partial void DrawGizmos();
         
 #if UNITY_EDITOR
         private static Material errorMaterial;
@@ -36,7 +38,16 @@ namespace CustomRP.Runtime
             }
             var filteringSettings = FilteringSettings.defaultValue;
             mContext.DrawRenderers(mCullingResults,ref drawingSettings,ref filteringSettings);
-        }  
+        }
+
+        partial void DrawGizmos()
+        {
+            if (Handles.ShouldRenderGizmos())
+            {
+                mContext.DrawGizmos(mCamera,GizmoSubset.PreImageEffects);
+                mContext.DrawGizmos(mCamera,GizmoSubset.PostImageEffects);
+            }
+        }
 #endif
     }
 }
