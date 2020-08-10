@@ -15,6 +15,8 @@ namespace CustomRP.Runtime
         {
             this.mContext = context;
             this.mCamera = camera;
+            PrepareBuffer();
+            PrepareForSceneWindow();
              if (!Cull())
              {
                  return;
@@ -45,7 +47,7 @@ namespace CustomRP.Runtime
 
         void Submit()
         {   
-            mCommandBuffer.EndSample(bufferName);
+            mCommandBuffer.EndSample(SampleName);
             ExecuteBuffer();
             mContext.Submit();
         }
@@ -54,7 +56,7 @@ namespace CustomRP.Runtime
         {
             mContext.SetupCameraProperties(mCamera);
             mCommandBuffer.ClearRenderTarget(true,true,Color.clear);
-            mCommandBuffer.BeginSample(bufferName);
+            mCommandBuffer.BeginSample(SampleName);
             ExecuteBuffer();
         }
 

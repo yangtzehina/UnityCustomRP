@@ -1,6 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Profiling;
 
 namespace CustomRP.Runtime
 {
@@ -8,10 +9,14 @@ namespace CustomRP.Runtime
     {
         partial void DrawUnsupportedShaders();
         partial void DrawGizmos();
+        partial void PrepareForSceneWindow();
+        partial void PrepareBuffer();
         
 #if UNITY_EDITOR
         private static Material errorMaterial;
 
+        private string SampleName { get; set; }
+        
         private static ShaderTagId[] _legacyShaderTagIds = new[]
         {
             new ShaderTagId("Always"),
@@ -48,6 +53,25 @@ namespace CustomRP.Runtime
                 mContext.DrawGizmos(mCamera,GizmoSubset.PostImageEffects);
             }
         }
+
+        partial void PrepareForSceneWindow()
+        {
+            if (mCamera.cameraType == CameraType.SceneView)
+            {
+                ScriptableRenderContext.EmitWorldGeometryForSceneView(mCamera);
+            }
+        }
+
+        partial void PrepareBuffer()
+        {
+            Profiler.BeginSample("Editor Only");
+            mCommandBuffer.name = SampleName =mCamera.name;
+            Profiler.EndSample();
+        }
+#else
+        
+        const string SampleName = bufferName;
+
 #endif
     }
 }
