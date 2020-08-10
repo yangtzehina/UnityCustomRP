@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\CustomRP\Runtime\CameraRenderer.cs" />
+     <Compile Include="Assets\CustomRP\Runtime\CameraRenderer.Editor.cs" />
      <Compile Include="Assets\CustomRP\Runtime\CustomRenderPipeline.cs" />
      <Compile Include="Assets\CustomRP\Runtime\CustomRenderPipelineAsset.cs" />
  <Reference Include="Unity.Timeline.Editor">

@@ -3,7 +3,7 @@ using UnityEngine.Rendering;
 
 namespace CustomRP.Runtime
 {
-    public class CameraRenderer
+    public partial class CameraRenderer
     {
         private ScriptableRenderContext mContext;
         private Camera mCamera;
@@ -21,9 +21,10 @@ namespace CustomRP.Runtime
              }
             Setup();
             DrawVisibleGeometry();
+            DrawUnsupportedShaders();
             Submit();
         }
-
+        
         void DrawVisibleGeometry()
         {
             var sortingSettings = new SortingSettings(mCamera)
