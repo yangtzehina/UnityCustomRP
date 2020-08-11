@@ -56,7 +56,10 @@ namespace CustomRP.Runtime
         {
             mContext.SetupCameraProperties(mCamera);
             CameraClearFlags flags = mCamera.clearFlags;
-            mCommandBuffer.ClearRenderTarget(true,true,Color.clear);
+            mCommandBuffer.ClearRenderTarget(flags<=CameraClearFlags.Depth,
+                flags==CameraClearFlags.Color,
+                flags == CameraClearFlags.Color?
+                    mCamera.backgroundColor.linear:Color.clear);
             mCommandBuffer.BeginSample(SampleName);
             ExecuteBuffer();
         }
