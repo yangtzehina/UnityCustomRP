@@ -55,6 +55,7 @@ namespace CustomRP.Runtime
         void Setup()
         {
             mContext.SetupCameraProperties(mCamera);
+            CameraClearFlags flags = mCamera.clearFlags;
             mCommandBuffer.ClearRenderTarget(true,true,Color.clear);
             mCommandBuffer.BeginSample(SampleName);
             ExecuteBuffer();
