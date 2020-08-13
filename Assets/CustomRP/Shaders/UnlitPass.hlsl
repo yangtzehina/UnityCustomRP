@@ -5,11 +5,11 @@
 
 float4 UnlitPassVertex (float3 positionOS : POSITION) : SV_POSITION {
     float3 positionWS = TransformObjectToWorld(positionOS.xyz);
-    return float4(positionWS,1.0);
+    return TransformWorldToHClip(positionWS);
 }
 
 float4 UnlitPassFragment (): SV_TARGET {
-	return 0.0;
+	return float4(0.0,1.0,1.0,1.0);
 }
 #endif
 
