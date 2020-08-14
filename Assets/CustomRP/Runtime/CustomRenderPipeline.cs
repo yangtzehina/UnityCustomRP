@@ -13,5 +13,10 @@ namespace CustomRP.Runtime
                 mRenderer.Render(context,camera);
             }
         }
+
+        public CustomRenderPipeline()
+        {
+            GraphicsSettings.useScriptableRenderPipelineBatching = true;
+        }
     }
 }
